@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Incluir Pergunta</title>
+    <script>
+        function EnviarPergunta() {
+            let nome = document.getElementById("nome").value;
+            let cpf = document.getElementById("cpf").value;
+            let sala = document.getElementById("sala").value;
+
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("msg").innerHTML = this.responseText;
+                } else if (this.readyState < 4) {
+                    console.log("3: " + this.readyState);
+                } else {
+                    console.log("Requisicao falhou: " + this.status);
+                }
+            };
+
+            xmlhttp.open("POST", "http://localhost/Incluir_fiscal.php");
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("nome=" + nome + "&cpf=" + cpf + "&sala=" + sala);
+        }
+
+        function ValidaForm(pid, pnome, pcpf, psala) {
+            let msg = "";
+            if (pid == 0) {
+                msg = "id não preenchido. <br>";
+            }
+
+            return msg;
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Inserir Pergunta</h1>
+    <br>
+    <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="Incluir_fiscal.html">Incluir</a></li>
+        <li><a href="Listar.html">Listar</a></li>
+        <li><a href="Alterar.html">Alterar</a></li>
+    </ul>
+    <br>
+    <form action="" method="POST" name="formPergunta" id="formPergunta">
+        Nome:<br>
+        <input type="text" name="nome" id="nome" required> <br>
+        CPF:<br>
+        <input type="text" name="cpf" id="cpf"> <br>
+        Sala:<br>
+        <input type="text" name="sala" id="sala"> <br>
+        <br><br>
+        <input type="button" value="Inserir" onclick="EnviarPergunta()">
+    </form>
+    <p id="msg"></p>
+    <br>
+</body>
+
+</html>

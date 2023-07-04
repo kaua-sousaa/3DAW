@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Candidatos</title>
+    <script>
+        function ExibirCandidatos() {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let candidatos = JSON.parse(this.responseText);
+                    let table = document.getElementById("candidatosTable");
+                    table.innerHTML = ""; // Limpa a tabela antes de adicionar os novos dados
+
+                    for (let i = 0; i < candidatos.length; i++) {
+                        let candidato = candidatos[i];
+                        let row = table.insertRow(); // Insere uma nova linha na tabela
+
+                        let cellNome = row.insertCell();
+                        cellNome.innerHTML = candidato.nome;
+
+                        let cellCPF = row.insertCell();
+                        cellCPF.innerHTML = candidato.cpf;
+
+                        let cellSala = row.insertCell();
+                        cellSala.innerHTML = candidato.sala;
+
+                        let cellEmail = row.insertCell();
+                        cellEmail.innerHTML = candidato.email;
+
+                        let cellCargo = row.insertCell();
+                        cellCargo.innerHTML = candidato.cargo;
+                    }
+                }
+            };
+
+            xmlhttp.open("GET", "http://localhost/Listar_candidato.php");
+            xmlhttp.send();
+        }
+        //11111
+    </script>
+</head>
+
+<body>
+    <h1>Listar Candidatos</h1>
+    <br>
+    <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="Incluir_fiscal.html">Incluir</a></li>
+        <li><a href="Listar.html">Listar</a></li>
+        <li><a href="Alterar.html">Alterar</a></li>
+    </ul>
+    <br>
+    <h2>Candidatos Cadastrados</h2>
+    <table id="candidatosTable">
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Sala</th>
+            <th>Email</th>
+            <th>Cargo</th>
+        </tr>
+    </table>
+
+    <script>
+        // Exibe os dados assim que a página é carregada
+        window.onload = function () {
+            ExibirCandidatos();
+        };
+    </script>
+</body>
+
+</html>
