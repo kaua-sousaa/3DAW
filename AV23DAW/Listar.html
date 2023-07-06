@@ -5,40 +5,32 @@
     <meta charset="UTF-8">
     <title>Listar Candidatos</title>
     <script>
-        function ExibirCandidatos() {
-            let xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    let candidatos = JSON.parse(this.responseText);
-                    let table = document.getElementById("candidatosTable");
-                    table.innerHTML = ""; // Limpa a tabela antes de adicionar os novos dados
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost/AV23DAW/Listar_candidato.php');
+        xhr.send();
 
-                    for (let i = 0; i < candidatos.length; i++) {
-                        let candidato = candidatos[i];
-                        let row = table.insertRow(); // Insere uma nova linha na tabela
+        xhr.addEventListener('load', function() 
+        {
+            var registros = JSON.parse(this.responseText);
+            var tabela = "<table>";
+            tabela += "<tr><th>Nome</th><th>CPF</th><th>Identidade</th><th>Email</th><th>Cargo pretendido</th><th>Sala de prova</th></tr>";
 
-                        let cellNome = row.insertCell();
-                        cellNome.innerHTML = candidato.nome;
-
-                        let cellCPF = row.insertCell();
-                        cellCPF.innerHTML = candidato.cpf;
-
-                        let cellSala = row.insertCell();
-                        cellSala.innerHTML = candidato.sala;
-
-                        let cellEmail = row.insertCell();
-                        cellEmail.innerHTML = candidato.email;
-
-                        let cellCargo = row.insertCell();
-                        cellCargo.innerHTML = candidato.cargo;
-                    }
+            for (var i = 0; i < registros.length; i++) 
+            {
+                var perguntas = registros[i];
+                tabela += "<tr>";
+                for (var ii in perguntas) 
+                {
+                    var valor = perguntas[ii];
+                    tabela += "<td style='border:1px solid black;'>" + valor + "</td>";
                 }
-            };
+                tabela += "</tr>";
+            }
 
-            xmlhttp.open("GET", "http://localhost/Listar_candidato.php");
-            xmlhttp.send();
-        }
-        //11111
+            tabela += "</table>";
+
+            document.querySelector('#resultados').innerHTML = tabela;
+        });
     </script>
 </head>
 
@@ -46,29 +38,14 @@
     <h1>Listar Candidatos</h1>
     <br>
     <ul>
-        <li><a href="index.html">Index</a></li>
         <li><a href="Incluir_fiscal.html">Incluir</a></li>
         <li><a href="Listar.html">Listar</a></li>
         <li><a href="Alterar.html">Alterar</a></li>
     </ul>
     <br>
     <h2>Candidatos Cadastrados</h2>
-    <table id="candidatosTable">
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Sala</th>
-            <th>Email</th>
-            <th>Cargo</th>
-        </tr>
-    </table>
+    <div id="resultados"></div>
 
-    <script>
-        // Exibe os dados assim que a página é carregada
-        window.onload = function () {
-            ExibirCandidatos();
-        };
-    </script>
 </body>
 
 </html>

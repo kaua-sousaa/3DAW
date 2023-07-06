@@ -1,34 +1,26 @@
 <?php
-$servidor = "localhost";
-$username = "root";
-$senha = "";
-$database = "av2js";
-
-$conn = new mysqli($servidor, $username, $senha, $database);
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
-
-$query = "SELECT * FROM candidato";
-$result = $conn->query($query);
-
-$candidatos = array();
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $candidato = array(
-            "nome" => $row["nome"],
-            "cpf" => $row["cpf"],
-            "sala" => $row["sala"],
-            "email" => $row["email"],
-            "cargo" => $row["cargo"]
-        );
-        array_push($candidatos, $candidato);
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "av2js";
+    
+    $mysqli = mysqli_connect("localhost", "root", "", "av2js");
+    if ($mysqli === false) {
+    die("Erro na conexão com o banco de dados: " . mysqli_connect_error());
     }
-}
 
-header('Content-Type: application/json');
-echo json_encode($candidatos);
+    $comandoSQL = "SELECT * FROM candidato ORDER BY nome ASC";
+    $resultado = $mysqli->query($comandoSQL);
 
-$conn->close();
+    $registros = array();
+
+    while($row = $resultado->fetch_assoc()){
+        $registros[] = $row;
+    }
+
+    $registrosJson = json_encode($registros);
+
+    echo $registrosJson;
+
+    $mysqli->close();
 ?>
