@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="estilo.css">
     <meta charset="UTF-8">
     <title>Incluir Pergunta</title>
     <script>
@@ -48,11 +49,11 @@
     <br>
     <form action="" method="POST" name="formPergunta" id="formPergunta">
         Nome:<br>
-        <input type="text" name="nome" id="nome" required> <br>
+        <input type="text" name="nome" id="nome" placeholder="Insira o nome" required> <br>
         CPF:<br>
-        <input type="text" name="cpf" id="cpf"> <br>
+        <input type="text" name="cpf" id="cpf" placeholder="Insira o CPF"><br>
         Sala:<br>
-        <input type="text" name="sala" id="sala"> <br>
+        <input type="text" name="sala" id="sala" placeholder="Insira a sala"> <br>
         <br><br>
         <input type="button" value="Inserir" onclick="EnviarPergunta()">
     </form>

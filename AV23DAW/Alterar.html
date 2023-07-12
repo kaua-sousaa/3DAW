@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
+    <link rel="stylesheet" href="estilo.css">
     <script>
         function alterarSala() {
             var nome = document.getElementById('nome').value;
@@ -16,7 +17,7 @@
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log("Atualização concluída com sucesso!");
-                    // Ou exiba uma mensagem na página
+            
                     document.getElementById("msg").innerHTML = "Atualização concluída com sucesso!";
                 }
                 else if (this.readyState < 4) {
@@ -30,14 +31,16 @@
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xmlhttp.send('nome=' + nome + '&novaSala=' + novaSala);
 
-            //11
+            //hihi11
         }
 
     </script>
 </head>
 
 <body>
+
     <h1>Alterar sala</h1>
+    <br>
     <ul>
         <li><a href="Incluir_fiscal.html">Incluir</a></li>
         <li><a href="Listar.html">Listar</a></li>
@@ -47,12 +50,14 @@
 
     <form action="" id="formAlterar" method="POST">
         Nome do candidato:<br>
-        <input type="text" name="nome" id="nome"><br>
+        <input type="text" name="nome" id="nome" placeholder="Insira o nome"><br>
         Nova sala do candidato:<br>
-        <input type="text" name="novaSala" id="novaSala"><br><br>
+        <input type="text" name="novaSala" id="novaSala" placeholder="Insira a nova sala"><br><br>
         <input type="button" value="Enviar" onclick="alterarSala()">
     </form>
     <div id="msg"></div>
+
+
 </body>
 
 </html>
